@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BinAlertController;
 use App\Http\Controllers\Api\BinController;
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\RecyclerProfileController;
 use App\Http\Controllers\Api\WasteOfferController;
 use Illuminate\Support\Facades\Route;
@@ -44,4 +45,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('bin-alerts', [BinAlertController::class, 'store']);
     Route::patch('bin-alerts/{binAlert}/status', [BinAlertController::class, 'updateStatus'])
         ->middleware('role:isacam,admin');
+
+    // Mon profil
+    Route::get('profile/stats', [ProfileController::class, 'stats']);
+    Route::patch('profile', [ProfileController::class, 'update']);
 });
