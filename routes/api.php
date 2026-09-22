@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BinAlertController;
 use App\Http\Controllers\Api\BinController;
+use App\Http\Controllers\Api\RecyclerProfileController;
+use App\Http\Controllers\Api\WasteOfferController;
 use Illuminate\Support\Facades\Route;
 
 // Public (dont le visiteur)
@@ -27,4 +30,18 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('bins/{bin}', [BinController::class, 'update']);
         Route::delete('bins/{bin}', [BinController::class, 'destroy']);
     });
+
+    // Vente des déchets
+    Route::get('recyclers', [RecyclerProfileController::class, 'index']);
+
+    Route::get('waste-offers', [WasteOfferController::class, 'index']);
+    Route::post('waste-offers', [WasteOfferController::class, 'store'])->middleware('role:citoyen');
+    Route::patch('waste-offers/{wasteOffer}/status', [WasteOfferController::class, 'updateStatus']);
+
+    // Suivi des alertes
+    Route::get('bin-alerts', [BinAlertController::class, 'index']);
+    Route::get('bin-alerts/summary', [BinAlertController::class, 'summary']);
+    Route::post('bin-alerts', [BinAlertController::class, 'store']);
+    Route::patch('bin-alerts/{binAlert}/status', [BinAlertController::class, 'updateStatus'])
+        ->middleware('role:isacam,admin');
 });

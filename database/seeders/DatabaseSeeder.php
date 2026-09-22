@@ -54,5 +54,10 @@ class DatabaseSeeder extends Seeder
                 'municipality_code' => 'MAIRIE-YDE1',
             ]);
         }
+
+        $this->call([
+            MarketplaceSeeder::class,
+            AlertSeeder::class,
+        ]);
     }
 }
