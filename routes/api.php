@@ -35,6 +35,13 @@ Route::middleware('auth:sanctum')->group(function () {
     // Vente des déchets
     Route::get('recyclers', [RecyclerProfileController::class, 'index']);
 
+    // Le recycleur gère son propre profil (obligatoire pour apparaître
+    // dans la liste ci-dessus).
+    Route::middleware('role:recycleur')->group(function () {
+        Route::get('recyclers/me', [RecyclerProfileController::class, 'me']);
+        Route::put('recyclers/me', [RecyclerProfileController::class, 'updateMe']);
+    });
+
     Route::get('waste-offers', [WasteOfferController::class, 'index']);
     Route::post('waste-offers', [WasteOfferController::class, 'store'])->middleware('role:citoyen');
     Route::patch('waste-offers/{wasteOffer}/status', [WasteOfferController::class, 'updateStatus']);
