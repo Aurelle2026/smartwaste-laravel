@@ -1,0 +1,15 @@
+[Unit]
+Description=SmartWaste Laravel queue worker
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=deploy
+Group=www-data
+WorkingDirectory=/var/www/smartwaste/current
+ExecStart=/usr/bin/php artisan queue:work --sleep=3 --tries=3 --max-time=3600
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

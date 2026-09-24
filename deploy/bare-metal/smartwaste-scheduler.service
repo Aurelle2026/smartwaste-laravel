@@ -1,0 +1,9 @@
+[Unit]
+Description=SmartWaste Laravel scheduler (runs every minute)
+
+[Service]
+Type=oneshot
+User=deploy
+Group=www-data
+WorkingDirectory=/var/www/smartwaste/current
+ExecStart=/usr/bin/php artisan schedule:run
