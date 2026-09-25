@@ -47,7 +47,7 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
     ports:
-      - "${DB_PORT:-5435}:5432"
+      - "127.0.0.1:${DB_HOST_PORT:-5435}:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-smartwaste} -d ${DB_DATABASE:-smartwaste}"]
       interval: 5s
